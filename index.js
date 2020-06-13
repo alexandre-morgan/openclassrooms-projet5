@@ -1,3 +1,4 @@
+// Fonction pour créer une requête http valide sur tous les navigateurs
 var getHttpRequest = function (){
     if (window.XMLHttpRequest) { // Mozilla, Safari,...
         httpRequest = new XMLHttpRequest();
@@ -40,13 +41,16 @@ for(let i = 0; i < categories.length; i++){
         if(request.readyState === 4 && request.status === 200){
             let results = JSON.parse(request.responseText)
             allProducts.push(results)
+        }else{
+            alert('Problème de connexion avec le server')
         }
     }
     request.send()
 }
 
+console.log(allProducts)
 // Afficher les produits par catégorie
-var displayProducts = function (results,list){
+var displayProducts = function (results,list,j){
     var ul = document.createElement('ul')
     ul.classList.add('list-unstyled')
     list.appendChild(ul)
@@ -75,7 +79,8 @@ var displayProducts = function (results,list){
         var lien = document.createElement('a')
         //lien.classList.add('d-none')
         lien.classList.add('stretched-link')
-        lien.setAttribute('href','#header')
+        lien.setAttribute('href','pages/one-product.html'
+        + '?categorie=' + categories[j] + '&' + 'id=' + results[j]._id)
 
         ul.appendChild(li)
         li.appendChild(div)
@@ -90,27 +95,27 @@ var displayProducts = function (results,list){
 // Afficher tous les produits
 var displayAllProducts = function(){
     for(let j = 0; j < categories.length; j++){
-        displayProducts(allProducts[j],columnForProducs[j])
+        displayProducts(allProducts[j],columnForProducs[j],j)
     }
 }
 
-let parameters = window.location.search
-console.log(parameters)
+let indexParameters = window.location.search
+console.log(indexParameters)
 
-switch(parameters){
+switch(indexParameters){
     default:
         displayAllProducts()
         break;
     
     case '?categorie=teddies':
-        displayProducts(allProducts[0],columnForProducs[0])
+        displayProducts(allProducts[0],columnForProducs[0],0)
         break;
 
     case '?categorie=cameras':
-        displayProducts(allProducts[1],columnForProducs[1])
+        displayProducts(allProducts[1],columnForProducs[1],1)
         break;
 
     case '?categorie=furniture':
-        displayProducts(allProducts[2],columnForProducs[2])
+        displayProducts(allProducts[2],columnForProducs[2],2)
         break;
 }
