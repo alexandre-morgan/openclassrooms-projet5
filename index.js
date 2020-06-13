@@ -25,60 +25,27 @@ var getHttpRequest = function (){
     return httpRequest
 }
 
-var listTeddy = document.getElementById('teddies')
-var listCamera = document.getElementById('cameras')
-var listFurniture = document.getElementById('furniture')
+var categories=['teddies','cameras','furniture']
+var allProducts = []
+var teddiesList = document.getElementById(categories[0])
+var camerasList = document.getElementById(categories[1])
+var furnitureList = document.getElementById(categories[2])
+var columnForProducs = [teddiesList, camerasList, furnitureList]
 
-
-var productsTeddy = new getHttpRequest()
-productsTeddy.onreadystatechange = function(){
-    if (productsTeddy.readyState === 4){
-        if(productsTeddy.status === 200){
-            var results = JSON.parse(productsTeddy.responseText)
-            displayProducts(results,listTeddy)
-        } else{
-            alert('impossible de contacter le serveur')
-        }
-    } 
+for(let i = 0; i < categories.length; i++){
+    let request = new getHttpRequest()
+    request.open('GET','http://localhost:3000/api/' + categories[i],false)
     
-}
-productsTeddy.open('GET','http://localhost:3000/api/teddies',true)
-productsTeddy.send()
-        
-var productscamera = new getHttpRequest()
-productscamera.onreadystatechange = function(){
-    if (productscamera.readyState === 4){
-        if(productscamera.status === 200){
-            var results = JSON.parse(productscamera.responseText)
-            displayProducts(results,listCamera)
-        
-        } else{
-            alert('impossible de contacter le serveur')
+    request.onreadystatechange = function(){
+        if(request.readyState === 4 && request.status === 200){
+            let results = JSON.parse(request.responseText)
+            allProducts.push(results)
         }
-    } 
-    
+    }
+    request.send()
 }
-productscamera.open('GET','http://localhost:3000/api/cameras',true)
-productscamera.send()
 
-var productsFurniture = new getHttpRequest()
-productsFurniture.onreadystatechange = function(){
-    if (productsFurniture.readyState === 4){
-        if(productsFurniture.status === 200){
-            var results = JSON.parse(productsFurniture.responseText)
-            displayProducts(results,listFurniture)
-        
-        } else{
-            alert('impossible de contacter le serveur')
-        }
-    } 
-    
-}
-productsFurniture.open('GET','http://localhost:3000/api/furniture',true)
-productsFurniture.send()
-
-
-
+// Afficher les produits par catégorie
 var displayProducts = function (results,list){
     var ul = document.createElement('ul')
     ul.classList.add('list-unstyled')
@@ -120,3 +87,30 @@ var displayProducts = function (results,list){
     }
 }
 
+// Afficher tous les produits
+var displayAllProducts = function(){
+    for(let j = 0; j < categories.length; j++){
+        displayProducts(allProducts[j],columnForProducs[j])
+    }
+}
+
+let parameters = window.location.search
+console.log(parameters)
+
+switch(parameters){
+    default:
+        displayAllProducts()
+        break;
+    
+    case '?categorie=teddies':
+        displayProducts(allProducts[0],columnForProducs[0])
+        break;
+
+    case '?categorie=cameras':
+        displayProducts(allProducts[1],columnForProducs[1])
+        break;
+
+    case '?categorie=furniture':
+        displayProducts(allProducts[2],columnForProducs[2])
+        break;
+}
