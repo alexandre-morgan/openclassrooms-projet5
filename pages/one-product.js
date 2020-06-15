@@ -139,12 +139,10 @@ cartAddingButton.addEventListener('click',function(){
     displayCartQuantity()
 })
 
-let test = document.getElementById('test')
 
 var addProductToCart = function(){
     let indice = localStorage.getItem('cartNumber')
     localStorage.setItem('product_' + indice,oneProductParameters)
-    test.innerHTML = localStorage.getItem('product_' + indice)
 }
 
 var Add1ToCartCounter= function(){
