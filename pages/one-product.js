@@ -60,13 +60,66 @@ let imgProduct = document.getElementById('imgProduct')
 let nameProduct = document.getElementById('name')
 let priceProduct = document.getElementById('price')
 let descriptionProduct = document.getElementById('description')
-let customizationProduct = document.getElementById('customization')
+let customizationProduct = document.getElementById('inputCustomization')
 
+// Afficher les données du produit sélectionné
 var displayOneProduct = function(){
+    
     imgProduct.setAttribute('src',oneProduct.imageUrl)
     nameProduct.innerHTML = oneProduct.name
     priceProduct.innerHTML = oneProduct.price/100 + ' €'
     descriptionProduct.innerHTML = oneProduct.description
+    displayCustomization(oneProductParameters[0])
+}
+
+// Fonction pour afficher les choix de personnalisation du produit
+var displayCustomization = function(categorie){
+    let customChoices
+    let option
+    switch(categorie){
+        case 'teddies':
+            customChoices = oneProduct.colors
+            option = document.createElement('option')
+            option.innerHTML = 'Couleurs'
+            customizationProduct.appendChild(option)
+            for(let i = 0; i < customChoices.length; i++){
+                option = document.createElement('option')
+                option.innerHTML = customChoices[i]
+                customizationProduct.appendChild(option)
+            }
+            break;
+        case 'cameras':
+            customChoices = oneProduct.lenses
+            option = document.createElement('option')
+            option.innerHTML = 'Lentilles'
+            customizationProduct.appendChild(option)
+            for(let i = 0; i < customChoices.length; i++){
+                option = document.createElement('option')
+                option.innerHTML = customChoices[i]
+                customizationProduct.appendChild(option)
+            }
+            break;
+        case 'furniture':
+            customChoices = oneProduct.varnish
+            option = document.createElement('option')
+            option.innerHTML = 'Vernis'
+            customizationProduct.appendChild(option)
+            for(let i = 0; i < customChoices.length; i++){
+                option = document.createElement('option')
+                option.innerHTML = customChoices[i]
+                customizationProduct.appendChild(option)
+            }
+            break;
+    }
 }
 
 displayOneProduct()
+
+var productsInCart = []
+
+let cart = document.getElementById('cart')
+cart.addEventListener('click',function(){
+    productsInCart.push(oneProduct)
+    console.log(productsInCart)
+    alert(oneProduct.name + ' a bien été ajouté à votre panier')
+})
