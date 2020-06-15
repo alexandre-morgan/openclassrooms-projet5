@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
 
         <title>Orinoco</title>
     </head>
@@ -15,8 +15,8 @@
             <div class="container">
                 <div class="row">
                     <nav class="col navbar navbar-expand-md navbar-dark">
-                        <a class="navbar-brand" href="index.html">
-                            <img src="images/logo.png" alt="logo Orinoco"/>
+                        <a class="navbar-brand" href="../index.html">
+                            <img src="../images/logo.png" alt="logo Orinoco"/>
                         </a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" 
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,7 +25,7 @@
                         <div class="collapse navbar-collapse" id="navbarNav">
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="index.html">Accueil <span class="sr-only">(current)</span></a>
+                                    <a class="nav-link" href="../index.html">Accueil <span class="sr-only">(current)</span></a>
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" 
@@ -33,9 +33,9 @@
                                         Produits
                                     </a>
                                     <div class="dropdown-menu navbar-dark bg-dark" aria-labelledby="navbarDropdownMenuLink">
-                                        <a class="dropdown-item" href="index.html?categorie=teddies">Ours en peluche</a>
-                                        <a class="dropdown-item" href="index.html?categorie=cameras">Caméras vintage</a>
-                                        <a class="dropdown-item" href="index.html?categorie=furniture">Meubles en chêne</a>
+                                        <a class="dropdown-item" href="../index.html?categorie=teddies">Ours en peluche</a>
+                                        <a class="dropdown-item" href="../index.html?categorie=cameras">Caméras vintage</a>
+                                        <a class="dropdown-item" href="../index.html?categorie=furniture">Meubles en chêne</a>
                                     </div>
                                   </li>
                             </ul>
@@ -46,26 +46,20 @@
                                 <div class="nav-item text-white" id="nbProductInCart">
                                     
                                 </div>
-                            </div>                        </div>
+                            </div>
+                        </div>
                       </nav>    
                 </div>
             </div>
         </header>
 
-        <main class="container">
-            <h2>Listes des articles</h2>
-            <div class="row">
-                <div class="col-12 col-md-4" id="teddies">
-                    <h3>Teddy bears</h3>
-                </div>
-                <div class="col-12 col-md-4" id="cameras">
-                    <h3>Cameras </h3>
-                </div>
-                <div class="col-12 col-md-4" id="furniture">
-                    <h3>Old Oak</h3>
-                </div>
-            </div>
+        <main>
+            <ul class="list-group">
+                
+            </ul>
         </main>
+
+
         <footer class="bg-light mt-5">
             <div class="container">
                 <div class="row pt-4 pb-3">
@@ -76,6 +70,8 @@
                             <li class="list-inline-item"><a href="#">CGV</a></li>
                             <li class="list-inline-item">&middot;</li>
                             <li class="list-inline-item"><a href="#">Plan du site</a></li>
+                            <li class="list-inline-item">&middot;</li>
+                            <li class="list-inline-item"><button class="btn btn-primary" id="cartReset">Reset Cart</button> </li>
                         </ul>
                     </div>
                 </div>
@@ -85,7 +81,7 @@
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-        <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="index.js"></script>
+        <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="one-product.js"></script>
     </body>
 </html>

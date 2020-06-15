@@ -61,6 +61,7 @@ let nameProduct = document.getElementById('name')
 let priceProduct = document.getElementById('price')
 let descriptionProduct = document.getElementById('description')
 let customizationProduct = document.getElementById('inputCustomization')
+let nbProductInCart = document.getElementById('nbProductInCart')
 
 // Afficher les données du produit sélectionné
 var displayOneProduct = function(){
@@ -113,13 +114,51 @@ var displayCustomization = function(categorie){
     }
 }
 
-displayOneProduct()
 
-var productsInCart = []
+// Afficher la quantité du panier
+var displayCartQuantity = function(){
+    nbProductInCart.innerHTML = localStorage.getItem('cartNumber')
+    console.log(localStorage.getItem('cartNumber'))    
+}
 
-let cart = document.getElementById('cart')
-cart.addEventListener('click',function(){
-    productsInCart.push(oneProduct)
-    console.log(productsInCart)
-    alert(oneProduct.name + ' a bien été ajouté à votre panier')
+
+let cartAddingButton = document.getElementById('cart')
+cartAddingButton.addEventListener('click',function(){
+    if(localStorage.getItem('cartNumber') === null){
+        localStorage.setItem('cartNumber',0)
+        Add1ToCartCounter()
+        addProductToCart()
+        alert(oneProduct.name + ' a bien été ajouté à votre panier')
+        console.log(localStorage)
+    }else{
+        Add1ToCartCounter()
+        addProductToCart()
+        alert(oneProduct.name + ' a bien été ajouté à votre panier')
+        console.log(localStorage)
+    }
+    displayCartQuantity()
 })
+
+let test = document.getElementById('test')
+
+var addProductToCart = function(){
+    let indice = localStorage.getItem('cartNumber')
+    localStorage.setItem('product_' + indice,oneProductParameters)
+    test.innerHTML = localStorage.getItem('product_' + indice)
+}
+
+var Add1ToCartCounter= function(){
+    let quantity = localStorage.getItem('cartNumber')
+    quantity++
+    localStorage.setItem('cartNumber',quantity)
+}
+
+let cartResetBtn = document.getElementById('cartReset')
+
+cartResetBtn.addEventListener('click', function(){
+    localStorage.clear()
+    displayCartQuantity()
+})
+
+displayOneProduct()
+displayCartQuantity()

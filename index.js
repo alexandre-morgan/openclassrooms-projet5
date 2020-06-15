@@ -32,6 +32,8 @@ var teddiesList = document.getElementById(categories[0])
 var camerasList = document.getElementById(categories[1])
 var furnitureList = document.getElementById(categories[2])
 var columnForProducs = [teddiesList, camerasList, furnitureList]
+let nbProductInCart = document.getElementById('nbProductInCart')
+
 
 for(let i = 0; i < categories.length; i++){
     let request = new getHttpRequest()
@@ -119,3 +121,7 @@ switch(indexParameters){
         displayProducts(allProducts[2],columnForProducs[2],2)
         break;
 }
+
+// Afficher la quantité du panier
+nbProductInCart.innerHTML = localStorage.getItem('cartNumber')
+console.log(localStorage.getItem('cartNumber'))
