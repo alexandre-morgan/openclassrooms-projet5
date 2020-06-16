@@ -30,12 +30,10 @@ let cartList = document.getElementById('cart')
 let categorieOfProduct
 let dataOfProduct
 let data
+let sumPrice=0
+let nbProductInCart = document.getElementsByClassName('nbProductInCart')
+let totalPrice = document.getElementById('totalPrice')
 
-// Afficher la quantité du panier
-var displayCartQuantity = function(){
-    nbProductInCart.innerHTML = localStorage.getItem('cartNumber')
-    console.log(localStorage.getItem('cartNumber'))    
-}
 
 
 var getProduct = function(categorie,id){
@@ -56,6 +54,7 @@ var getProduct = function(categorie,id){
 // Afficher les produits du panier
 var displayProductsInCart = function (results){
     let divRow = document.createElement('div')
+    divRow.classList.add('border','border-secondary','rounded','align-items-center','my-2')
     // Création de la ligne
     divRow.classList.add('row')
         // div pour image
@@ -74,7 +73,7 @@ var displayProductsInCart = function (results){
         divRow.appendChild(divInfo)
             // Div container
             let divContainer = document.createElement('div')
-            divContainer.classList.add('container')
+            divContainer.classList.add('container-fluid')
             divInfo.appendChild(divContainer)
 
                 // Div row in container
@@ -84,13 +83,13 @@ var displayProductsInCart = function (results){
 
                     // Div col flex
                     let divCol = document.createElement('div')
-                    divCol.classList.add('col','d-flex','justify-content-between','h2')
+                    divCol.classList.add('col','d-flex','justify-content-between','h5')
                     divContainer.appendChild(divCol)
 
                         // titre h2 pour name
-                        let h2Name = document.createElement('h2')
-                        h2Name.innerHTML=results.name
-                        divCol.appendChild(h2Name)
+                        let divName = document.createElement('div')
+                        divName.innerHTML=results.name
+                        divCol.appendChild(divName)
 
                         // p pour le prix
                         let pPrice = document.createElement('p')
@@ -101,8 +100,19 @@ var displayProductsInCart = function (results){
 }
 
 
-displayCartQuantity()
+// Afficher la quantité du panier
+var displayCartQuantity = function(){
+    for(let i =0; i < nbProductInCart.length; i++){
+        nbProductInCart[i].innerHTML = localStorage.getItem('cartNumber')
+        console.log(localStorage.getItem('cartNumber'))        
+    }
+    totalPrice.innerHTML = sumPrice + ' €'
+}
 
+
+// PROGRAMME DE FONCTIONNEMENT
+
+// Test si panier vide
 if(localStorage.getItem('cartNumber') === null){
     // Si panier vide
     let message = document.createElement('p')
@@ -110,17 +120,19 @@ if(localStorage.getItem('cartNumber') === null){
     message.innerHTML = 'Votre panier est vide.'
     cartList.appendChild(message)
 } else{
-    for(let i = 1; i < localStorage.length; i++){
-        // Test si panier vide
-
-            // Si panier NON vide
-            dataOfProduct = localStorage.getItem('product_' + [i]).split(',')
-            categorieOfProduct = dataOfProduct[0]
-            idOfProduct = dataOfProduct[1]
-            data = getProduct(categorieOfProduct,idOfProduct)
-            displayProductsInCart(data)    
-        }
+    // Si panier NON vide
+    for(let i = 1; i < localStorage.length; i++){     
+        dataOfProduct = localStorage.getItem('product_' + [i]).split(',')
+        categorieOfProduct = dataOfProduct[0]
+        idOfProduct = dataOfProduct[1]
+        data = getProduct(categorieOfProduct,idOfProduct)
+        sumPrice += data.price/100
+        displayProductsInCart(data)
+    }
+    console.log(sumPrice)
+    displayCartQuantity() 
 }
+
 
 
 
