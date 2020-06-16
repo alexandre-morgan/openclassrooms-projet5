@@ -26,33 +26,39 @@ var getHttpRequest = function (){
     return httpRequest
 }
 
-var categories=['teddies','cameras','furniture']
-var allProducts = []
-var teddiesList = document.getElementById(categories[0])
-var camerasList = document.getElementById(categories[1])
-var furnitureList = document.getElementById(categories[2])
-var columnForProducs = [teddiesList, camerasList, furnitureList]
+let categories=['teddies','cameras','furniture']
+let allProducts = []
+let teddiesList = document.getElementById(categories[0])
+let camerasList = document.getElementById(categories[1])
+let furnitureList = document.getElementById(categories[2])
+let columnForProducs = [teddiesList, camerasList, furnitureList]
 let nbProductInCart = document.getElementById('nbProductInCart')
+let loading = document.getElementById('loading')
 
-
-for(let i = 0; i < categories.length; i++){
+var getProducts = function(categorie){
     let request = new getHttpRequest()
-    request.open('GET','http://localhost:3000/api/' + categories[i],false)
+    request.open('GET','http://localhost:3000/api/' + categorie,false)
     
     request.onreadystatechange = function(){
         if(request.readyState === 4 && request.status === 200){
-            let results = JSON.parse(request.responseText)
-            allProducts.push(results)
+            return JSON.parse(request.responseText)
         }else{
             alert('Problème de connexion avec le server')
         }
     }
     request.send()
+    return request.onreadystatechange()
+}
+
+
+for(let i = 0; i < categories.length; i++){
+    allProducts.push(getProducts(categories[i]))
 }
 
 console.log(allProducts)
 // Afficher les produits par catégorie
 var displayProducts = function (results,list,j){
+    loading.innerHTML = ''
     var ul = document.createElement('ul')
     ul.classList.add('list-unstyled')
     list.appendChild(ul)
@@ -82,7 +88,7 @@ var displayProducts = function (results,list,j){
         //lien.classList.add('d-none')
         lien.classList.add('stretched-link')
         lien.setAttribute('href','pages/one-product.html'
-        + '?categorie=' + categories[j] + '&' + 'id=' + results[j]._id)
+        + '?categorie=' + categories[j] + '&' + 'id=' + results[i]._id)
 
         ul.appendChild(li)
         li.appendChild(div)

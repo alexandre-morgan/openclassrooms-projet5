@@ -82,6 +82,7 @@ var displayCustomization = function(categorie){
             customChoices = oneProduct.colors
             option = document.createElement('option')
             option.innerHTML = 'Couleurs'
+            option.setAttribute('selected', true)
             customizationProduct.appendChild(option)
             for(let i = 0; i < customChoices.length; i++){
                 option = document.createElement('option')
@@ -93,6 +94,7 @@ var displayCustomization = function(categorie){
             customChoices = oneProduct.lenses
             option = document.createElement('option')
             option.innerHTML = 'Lentilles'
+            option.setAttribute('selected', true)
             customizationProduct.appendChild(option)
             for(let i = 0; i < customChoices.length; i++){
                 option = document.createElement('option')
@@ -104,6 +106,7 @@ var displayCustomization = function(categorie){
             customChoices = oneProduct.varnish
             option = document.createElement('option')
             option.innerHTML = 'Vernis'
+            option.setAttribute('selected', true)
             customizationProduct.appendChild(option)
             for(let i = 0; i < customChoices.length; i++){
                 option = document.createElement('option')
@@ -126,15 +129,23 @@ let cartAddingButton = document.getElementById('cart')
 cartAddingButton.addEventListener('click',function(){
     if(localStorage.getItem('cartNumber') === null){
         localStorage.setItem('cartNumber',0)
-        Add1ToCartCounter()
-        addProductToCart()
-        alert(oneProduct.name + ' a bien été ajouté à votre panier')
-        console.log(localStorage)
+        if(customizationValidation()){
+            Add1ToCartCounter()
+            addProductToCart()
+            alert(oneProduct.name + ' a bien été ajouté à votre panier')
+            console.log(localStorage)    
+        }else{
+            alert('Veuillez choisir une personnalisation.')
+        }
     }else{
-        Add1ToCartCounter()
-        addProductToCart()
-        alert(oneProduct.name + ' a bien été ajouté à votre panier')
-        console.log(localStorage)
+        if(customizationValidation()){
+            Add1ToCartCounter()
+            addProductToCart()
+            alert(oneProduct.name + ' a bien été ajouté à votre panier')
+            console.log(localStorage)
+        }else{
+            alert('Veuillez choisir une personnalisation.')
+        }
     }
     displayCartQuantity()
 })
@@ -157,6 +168,15 @@ cartResetBtn.addEventListener('click', function(){
     localStorage.clear()
     displayCartQuantity()
 })
+
+var customizationValidation = function(){
+    let choice = customizationProduct.selectedIndex
+    if(choice === 0){
+        return false
+    }else{
+        return true
+    }
+}
 
 displayOneProduct()
 displayCartQuantity()
