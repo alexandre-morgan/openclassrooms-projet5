@@ -57,9 +57,10 @@
 
         <main class="container-fluid">
             <div class="row">
-                <div class="col-12 col-sm-8">
-                    <div class="container-fluid"  id="cart"></div>
+                <div class="col-11 col-sm-7">
+                    <div class="container-fluid text-right"  id="cart"></div>
                 </div>
+                <div class="col-1 col-sm-1" id="trashIcon"></div>
                 <div class="col-12 col-sm-4">
                     <div class="container-fluid border border-info rounded">
                         <div class="row">
@@ -85,13 +86,13 @@
                         </div>
                         <div class="row">
                             <div class="col text-right m-2">
-                                <button class="btn btn-info">Commander</button>
+                                <a class="btn btn-primary" href="#form" role="button">Commander</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <form id="">
+            <form id="form">
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="inputName">Nom</label>

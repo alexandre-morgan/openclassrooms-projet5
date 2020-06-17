@@ -51,15 +51,25 @@ var getProduct = function(categorie,id){
     return request.onreadystatechange()
 }
 
+
+var sub1ToCartCounter= function(){
+    let quantity = localStorage.getItem('cartNumber')
+    quantity--
+    localStorage.setItem('cartNumber',quantity)
+}
+
+
+
 // Afficher les produits du panier
-var displayProductsInCart = function (results){
+var displayProductsInCart = function (results,cat,index){
     let divRow = document.createElement('div')
     divRow.classList.add('border','border-secondary','rounded','align-items-center','my-2')
     // Création de la ligne
-    divRow.classList.add('row')
+    divRow.classList.add('row','position-relative')
         // div pour image
         let divImg = document.createElement('div')
         divImg.classList.add('col-12', 'col-md-6')
+
             // Image
             let img = document.createElement('img')
             img.setAttribute('src',results.imageUrl)
@@ -70,6 +80,7 @@ var displayProductsInCart = function (results){
         // div pour informations
         let divInfo = document.createElement('div')
         divInfo.classList.add('col-12', 'col-md-6')
+
         divRow.appendChild(divInfo)
             // Div container
             let divContainer = document.createElement('div')
@@ -84,7 +95,7 @@ var displayProductsInCart = function (results){
                     // Div col flex
                     let divCol = document.createElement('div')
                     divCol.classList.add('col','d-flex','justify-content-between','h5')
-                    divContainer.appendChild(divCol)
+                    divRowContainer.appendChild(divCol)
 
                         // titre h2 pour name
                         let divName = document.createElement('div')
@@ -96,6 +107,43 @@ var displayProductsInCart = function (results){
                         pPrice.classList.add('text-nowrap')
                         pPrice.innerHTML=results.price/100 + ' €'
                         divCol.appendChild(pPrice)
+
+                // Div row in container
+                let divRowContainer2 = document.createElement('div')
+                divRowContainer2.classList.add('row')
+                divContainer.appendChild(divRowContainer2)
+
+                    // Div col pour lien produit
+                    let divColLinkProduct = document.createElement('div')
+                    divColLinkProduct.classList.add('col-6','text-center','h3')
+                    divRowContainer2.appendChild(divColLinkProduct)
+                        // Lien produit
+                        let divLinkProduct = document.createElement('a')
+                        divLinkProduct.classList.add('btn','btn-info')
+                        divLinkProduct.setAttribute('title',"Voir l'article : " + results.name)
+                        divLinkProduct.setAttribute('href','one-product.html'
+                        + '?categorie=' + cat + '&' + 'id=' + results._id)
+                            // Icon du lien
+                            let imgLinkProduct = document.createElement('img')
+                            imgLinkProduct.setAttribute('src','../node_modules/bootstrap-icons/icons/search.svg')
+                            divLinkProduct.appendChild(imgLinkProduct)
+                            divColLinkProduct.appendChild(divLinkProduct)
+                    // Div col pour lien poubelle
+                    let divColLinkTrash = document.createElement('div')
+                    divColLinkTrash.classList.add('col-6','text-center','h3')
+                    divRowContainer2.appendChild(divColLinkTrash)
+
+                        // Lien poubelle
+                        let divTrash = document.createElement('a')
+                        divTrash.classList.add('btn','btn-danger')
+                        divTrash.setAttribute('id','trash' + index)
+                        divTrash.setAttribute('href','#')
+                            // Icon du lien
+                            let imgTrash = document.createElement('img')
+                            imgTrash.setAttribute('src','../node_modules/bootstrap-icons/icons/trash.svg')
+                            divTrash.appendChild(imgTrash)
+                            divColLinkTrash.appendChild(divTrash)
+
     cartList.appendChild(divRow)
 }
 
@@ -107,6 +155,18 @@ var displayCartQuantity = function(){
         console.log(localStorage.getItem('cartNumber'))        
     }
     totalPrice.innerHTML = sumPrice + ' €'
+}
+
+// Event for delete a product of cart
+var addEventOnTrash = function(i){
+    let trash = document.getElementById('trash' + i)
+    trash.addEventListener('click', function(e){
+        e.preventDefault()
+        localStorage.removeItem('product_' + i)
+        sub1ToCartCounter()
+        window.location.reload()
+    })
+    console.log(localStorage)
 }
 
 
@@ -127,12 +187,12 @@ if(localStorage.getItem('cartNumber') === null){
         idOfProduct = dataOfProduct[1]
         data = getProduct(categorieOfProduct,idOfProduct)
         sumPrice += data.price/100
-        displayProductsInCart(data)
+        displayProductsInCart(data,categorieOfProduct,i)
+        addEventOnTrash(i)
     }
     console.log(sumPrice)
     displayCartQuantity() 
 }
-
-
+console.log(localStorage)
 
 
