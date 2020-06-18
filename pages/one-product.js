@@ -125,8 +125,8 @@ var displayCartQuantity = function(){
 }
 
 
-let cartAddingButton = document.getElementById('cart')
-cartAddingButton.addEventListener('click',function(){
+let addToCartBtn = document.getElementById('cart')
+addToCartBtn.addEventListener('click',function(){
     if(localStorage.getItem('cartNumber') === null){
         localStorage.setItem('cartNumber',0)
         if(customizationValidation()){

@@ -1,6 +1,6 @@
 // Variables
-let categories=['teddies','cameras','furniture']
 let allProducts = []
+let categories=['teddies','cameras','furniture']
 let teddiesList = document.getElementById(categories[0])
 let camerasList = document.getElementById(categories[1])
 let furnitureList = document.getElementById(categories[2])
@@ -9,10 +9,6 @@ let nbProductInCart = document.getElementById('nbProductInCart')
 let loading = document.getElementById('loading')
 
 
-
-
-
-console.log(allProducts)
 // Afficher les produits par catégorie
 var displayProducts = function (results,list,j){
     loading.innerHTML = ''
@@ -64,25 +60,26 @@ var displayAllProducts = function(){
     }
 }
 
-
-// var getAllProducts = function(){
-//     return getProductByCategorie('teddies').then(function(response){
-//         allProducts.push(JSON.parse(reponse))
-//         console.log(allProducts)
-//         return getProductByCategorie('cameras')    
-//     }).then(function(response){
-//         allProducts.push(JSON.parse(reponse))
-//         return getProductByCategorie('furniture')
-//     }).then(function(response){
-//         allProducts.push(response)
-//     })
-// }
+// Fonction de récupération de tous les produits
+var getAllProducts = function(){
+    return getProductByCategorie('teddies').then(function(response){
+            allProducts.push(JSON.parse(response))
+            return getProductByCategorie('cameras')   
+        }).then(function(response){
+            allProducts.push(JSON.parse(response))
+                return getProductByCategorie('furniture')
+        }).then(function(response){
+            allProducts.push(JSON.parse(response))
+            return allProducts
+        })
+}
 
 // PROGRAMME DE FONCTIONNEMENT
 let indexParameters = window.location.search
 console.log(indexParameters)
 
-getProductByCategorie('teddies').then(function(response){
+
+getAllProducts().then(function(allProducts){
     switch(indexParameters){
         default:
             displayAllProducts()
@@ -100,12 +97,7 @@ getProductByCategorie('teddies').then(function(response){
             displayProducts(allProducts[2],columnForProducs[2],2)
             break;
     }
-    
 })
-
-
- 
-
 
 
 // Afficher la quantité du panier
