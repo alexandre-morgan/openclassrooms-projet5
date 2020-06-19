@@ -27,7 +27,7 @@ var getHttpRequest = function (){
 }
 
 
-var getProductByCategorie = function(categorie){
+var getProductsByCategorie = function(categorie){
     return new Promise(function(resolve, reject){
         let request = new getHttpRequest()
         request.onreadystatechange = function(){
@@ -44,6 +44,23 @@ var getProductByCategorie = function(categorie){
     })
 }
 
+var getOneProduct = function(categorie,id) {
+    return new Promise(function(resolve, reject){
+        let request = new getHttpRequest()
+        request.onreadystatechange = function(){
+            if(request.readyState === 4){
+                if(request.status === 200){
+                    resolve(request.responseText) 
+                }else{
+                    reject(request)
+                }
+            }
+        }
+        request.open('GET','http://localhost:3000/api/' + categorie + '/' + id,true)
+        request.send()
+    })
+
+}
 
 var displayErrorConnection = function(){
     console.error('Probleme de connexion avec le serveur')

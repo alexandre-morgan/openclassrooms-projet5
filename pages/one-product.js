@@ -1,30 +1,16 @@
-// Fonction pour créer une requête http valide sur tous les navigateurs
-var getHttpRequest = function (){
-    if (window.XMLHttpRequest) { // Mozilla, Safari,...
-        httpRequest = new XMLHttpRequest();
-        if (httpRequest.overrideMimeType) {
-          httpRequest.overrideMimeType('text/xml');
-        }
-    }
-    else if (window.ActiveXObject) { // IE
-        try {
-          httpRequest = new ActiveXObject("Msxml2.XMLHTTP");
-        }
-        catch (e) {
-          try {
-            httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
-          }
-          catch (e) {}
-        }
-    }
-    
-    if (!httpRequest) {
-        alert('Abandon :( Impossible de créer une instance XMLHTTP');
-        return false;
-    }
-    
-    return httpRequest
-}
+// Variables
+let imgProduct = document.getElementById('imgProduct')
+let nameProduct = document.getElementById('name')
+let priceProduct = document.getElementById('price')
+let descriptionProduct = document.getElementById('description')
+let customizationProduct = document.getElementById('inputCustomization')
+let selectQuantity = document.getElementById('selectQuantity')
+let nbProductInCart = document.getElementById('nbProductInCart')
+let oneProduct
+let oneProductParameters = extractUrlParams()
+let addToCartBtn = document.getElementById('cart')
+let modalBodyName = document.getElementById('modal-body-name')
+let continueBtn = document.getElementById('continueBtn')
 
 // Fonction pour extraire les paramètres de l'url :
 function extractUrlParams () {
@@ -36,32 +22,6 @@ function extractUrlParams () {
     }
     return f;
     }
-
-let oneProductParameters = extractUrlParams()
-console.log(oneProductParameters)
-
-var oneProduct
-
-let request = new getHttpRequest()
-request.open('GET','http://localhost:3000/api/' + oneProductParameters[0] + '/' + oneProductParameters[1],false)
-request.onreadystatechange = function(){
-    if(request.readyState === 4 && request.status === 200){
-        let results = JSON.parse(request.responseText)
-        oneProduct = results
-    }else{
-        alert('Problème de connexion avec le server')
-    }
-}
-request.send()
-
-console.log(oneProduct)
-
-let imgProduct = document.getElementById('imgProduct')
-let nameProduct = document.getElementById('name')
-let priceProduct = document.getElementById('price')
-let descriptionProduct = document.getElementById('description')
-let customizationProduct = document.getElementById('inputCustomization')
-let nbProductInCart = document.getElementById('nbProductInCart')
 
 // Afficher les données du produit sélectionné
 var displayOneProduct = function(){
@@ -125,29 +85,36 @@ var displayCartQuantity = function(){
 }
 
 
-let addToCartBtn = document.getElementById('cart')
+
+// console.log(oneProduct)
+
+// Récupérer le produit
+var getProduct = function(){
+    return getOneProduct(oneProductParameters[0],oneProductParameters[1]).then(function(response){
+        oneProduct = JSON.parse(response)
+        return oneProduct
+    })
+}
+
+
+
+// PROGRAMME DE FONCTIONNEMENT
+
+getProduct().then(function(oneProduct){
+    displayOneProduct()
+    nbProductInCart.innerHTML = cartObject.nbProducts
+})
+
 addToCartBtn.addEventListener('click',function(){
-    if(localStorage.getItem('cartNumber') === null){
-        localStorage.setItem('cartNumber',0)
-        if(customizationValidation()){
-            Add1ToCartCounter()
-            addProductToCart()
-            alert(oneProduct.name + ' a bien été ajouté à votre panier')
-            console.log(localStorage)    
+    if(customizationValidation()){
+        oneProduct.quantity = selectQuantity.selectedIndex + 1
+        addToCart(cartObject,oneProduct)
+        nbProductInCart.innerHTML = cartObject.nbProducts
+        $('#modalOK').modal('show')
+        modalBodyName.innerHTML = oneProduct.name
         }else{
-            alert('Veuillez choisir une personnalisation.')
-        }
-    }else{
-        if(customizationValidation()){
-            Add1ToCartCounter()
-            addProductToCart()
-            alert(oneProduct.name + ' a bien été ajouté à votre panier')
-            console.log(localStorage)
-        }else{
-            alert('Veuillez choisir une personnalisation.')
-        }
+        $('#modalNOK').modal('show')
     }
-    displayCartQuantity()
 })
 
 
@@ -178,5 +145,27 @@ var customizationValidation = function(){
     }
 }
 
-displayOneProduct()
 displayCartQuantity()
+
+
+    // if(localStorage.getItem('cartNumber') === null){
+    //     localStorage.setItem('cartNumber',0)
+    //     if(customizationValidation()){
+    //         Add1ToCartCounter()
+    //         addProductToCart()
+    //         alert(oneProduct.name + ' a bien été ajouté à votre panier')
+    //         console.log(localStorage)    
+    //     }else{
+    //         alert('Veuillez choisir une personnalisation.')
+    //     }
+    // }else{
+    //     if(customizationValidation()){
+    //         Add1ToCartCounter()
+    //         addProductToCart()
+    //         alert(oneProduct.name + ' a bien été ajouté à votre panier')
+    //         console.log(localStorage)
+    //     }else{
+    //         alert('Veuillez choisir une personnalisation.')
+    //     }
+    // }
+    // displayCartQuantity()

@@ -62,12 +62,12 @@ var displayAllProducts = function(){
 
 // Fonction de récupération de tous les produits
 var getAllProducts = function(){
-    return getProductByCategorie('teddies').then(function(response){
+    return getProductsByCategorie('teddies').then(function(response){
             allProducts.push(JSON.parse(response))
-            return getProductByCategorie('cameras')   
+            return getProductsByCategorie('cameras')   
         }).then(function(response){
             allProducts.push(JSON.parse(response))
-                return getProductByCategorie('furniture')
+                return getProductsByCategorie('furniture')
         }).then(function(response){
             allProducts.push(JSON.parse(response))
             return allProducts
