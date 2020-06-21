@@ -12,6 +12,7 @@ let totalPrice = document.getElementById('totalPrice')
 var displayProductsInCart = function (results,cat,index){
     let divRow = document.createElement('div')
     divRow.classList.add('border','border-secondary','rounded','align-items-center','my-2')
+    divRow.setAttribute('id','product' + index)
     // Création de la ligne
     divRow.classList.add('row','position-relative')
         // div pour image
@@ -47,6 +48,7 @@ var displayProductsInCart = function (results,cat,index){
 
                         // titre h2 pour name
                         let divName = document.createElement('div')
+                        divName.classList.add('text-left')
                         divName.innerHTML=results.name
                         divCol.appendChild(divName)
 
@@ -63,7 +65,7 @@ var displayProductsInCart = function (results,cat,index){
 
                     // Div col pour lien produit
                     let divColLinkProduct = document.createElement('div')
-                    divColLinkProduct.classList.add('col-6','text-center','h3')
+                    divColLinkProduct.classList.add('col-4','text-center','h3')
                     divRowContainer2.appendChild(divColLinkProduct)
                         // Lien produit
                         let divLinkProduct = document.createElement('a')
@@ -76,9 +78,29 @@ var displayProductsInCart = function (results,cat,index){
                             imgLinkProduct.setAttribute('src','../node_modules/bootstrap-icons/icons/search.svg')
                             divLinkProduct.appendChild(imgLinkProduct)
                             divColLinkProduct.appendChild(divLinkProduct)
+                    
+                    // Div col pour quantité du produit
+                    let divColQtyProduct = document.createElement('div')
+                    divColQtyProduct.classList.add('col-4')
+                    divRowContainer2.appendChild(divColQtyProduct)
+                        // span pour texte quantité
+                        let labelQuantity = document.createElement('label')
+                        labelQuantity.setAttribute('for','inputQuantity' + index)
+                        labelQuantity.innerHTML = 'Qté :'
+                        divColQtyProduct.appendChild(labelQuantity)
+
+                        // Input pour quantité
+                        let inputQuantity = document.createElement('input')
+                        inputQuantity.classList.add('w-100','text-center')
+                        inputQuantity.setAttribute('type','number')
+                        inputQuantity.setAttribute('value',results.quantity)
+                        inputQuantity.setAttribute('min','1')
+                        inputQuantity.setAttribute('id','inputQuantity' + index)
+                        divColQtyProduct.appendChild(inputQuantity)
+
                     // Div col pour lien poubelle
                     let divColLinkTrash = document.createElement('div')
-                    divColLinkTrash.classList.add('col-6','text-center','h3')
+                    divColLinkTrash.classList.add('col-4','text-center','h3')
                     divRowContainer2.appendChild(divColLinkTrash)
 
                         // Lien poubelle
@@ -93,8 +115,20 @@ var displayProductsInCart = function (results,cat,index){
                             divColLinkTrash.appendChild(divTrash)
 
     cartList.appendChild(divRow)
+
 }
 
+var displayTotalPrice = function(empty){
+    if(empty){
+        totalPrice.innerHTML = 0
+    }else{
+        let sumPrice = 0
+        for(let i = 0; i <cartObject.products.length; i++){
+            sumPrice += cartObject.products[i].price * cartObject.products[i].quantity
+        }
+        totalPrice.innerHTML = sumPrice / 100 + ' €'
+    }
+}
 
 
 // Event for delete a product of cart
@@ -102,17 +136,37 @@ var addEventOnTrash = function(i){
     let trash = document.getElementById('trash' + i)
     trash.addEventListener('click', function(e){
         e.preventDefault()
-        cartObject.products.splice(i,1)
-        cartUpdate(cartObject,cartObject.products,false)
-        window.location.reload()
+        cartObject.deleteToCart(i)
+        updateData()
+        this.parentNode.parentNode.parentNode.parentNode.parentNode.remove()
     })
+}
+
+var addEventOnQuantity = function(i){
+    let quantityBtn = document.getElementById('inputQuantity' + i)
+    quantityBtn.addEventListener('change', function(){
+        cartObject.updateQuantityOfOneProduct(quantityBtn.value, i)
+        updateData()
+    })
+}
+
+var updateData = function(){
+    //Affichage qté
+    nbProductInCart.innerHTML = cartObject.nbProducts
+
+    // Affichage prix total
+    if(cartObject.nbProducts === 0){
+        displayTotalPrice(true)
+    }else{
+        displayTotalPrice(false)
+    }
 }
 
 
 // PROGRAMME DE FONCTIONNEMENT
 
-// Affichage de la quantité de produit dans le panier
-nbProductInCart.innerHTML = cartObject.nbProducts
+
+updateData()
 
 // Test si panier vide
 if(cartObject.products.length === 0){
@@ -127,6 +181,7 @@ if(cartObject.products.length === 0){
     for(let i = 0; i < cartObject.products.length; i++){     
         displayProductsInCart(cartObject.products[i],cartObject.products[i].category,i)
         addEventOnTrash(i)
+        addEventOnQuantity(i)
     }
 }
 

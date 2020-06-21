@@ -77,11 +77,13 @@ var displayCustomization = function(categorie){
     }
 }
 
-
-// Afficher la quantité du panier
-var displayCartQuantity = function(){
-    nbProductInCart.innerHTML = localStorage.getItem('cartNumber')
-    console.log(localStorage.getItem('cartNumber'))    
+var customizationValidation = function(){
+    let choice = customizationProduct.selectedIndex
+    if(choice === 0){
+        return false
+    }else{
+        return true
+    }
 }
 
 
@@ -93,39 +95,31 @@ var getProduct = function(){
     })
 }
 
+// Ajouter event sur addToCart
+var addEventToAddToCart = function() {
+    addToCartBtn.addEventListener('click',function(){
+        if(customizationValidation()){
+            oneProduct.quantity = selectQuantity.selectedIndex + 1
+            oneProduct.category = oneProductParameters[0]
+            cartObject.cartUpdate(oneProduct,true)
+            nbProductInCart.innerHTML = cartObject.nbProducts
+            $('#modalOK').modal('show')
+            modalBodyName.innerHTML = oneProduct.name
+            }else{
+            $('#modalNOK').modal('show')
+        }
+    })
+    
+}
 
 
 // PROGRAMME DE FONCTIONNEMENT
+nbProductInCart.innerHTML = cartObject.nbProducts
 
 getProduct().then(function(oneProduct){
     displayOneProduct()
-    nbProductInCart.innerHTML = cartObject.nbProducts
+    addEventToAddToCart()
 })
-
-addToCartBtn.addEventListener('click',function(){
-    if(customizationValidation()){
-        oneProduct.quantity = selectQuantity.selectedIndex + 1
-        oneProduct.category = oneProductParameters[0]
-        cartUpdate(cartObject,oneProduct,true)
-        nbProductInCart.innerHTML = cartObject.nbProducts
-        $('#modalOK').modal('show')
-        modalBodyName.innerHTML = oneProduct.name
-        }else{
-        $('#modalNOK').modal('show')
-    }
-})
-
-
-var addProductToCart = function(){
-    let indice = localStorage.getItem('cartNumber')
-    localStorage.setItem('product_' + indice,oneProductParameters)
-}
-
-var Add1ToCartCounter= function(){
-    let quantity = localStorage.getItem('cartNumber')
-    quantity++
-    localStorage.setItem('cartNumber',quantity)
-}
 
 let cartResetBtn = document.getElementById('cartReset')
 
@@ -134,36 +128,3 @@ cartResetBtn.addEventListener('click', function(){
     displayCartQuantity()
 })
 
-var customizationValidation = function(){
-    let choice = customizationProduct.selectedIndex
-    if(choice === 0){
-        return false
-    }else{
-        return true
-    }
-}
-
-displayCartQuantity()
-
-
-    // if(localStorage.getItem('cartNumber') === null){
-    //     localStorage.setItem('cartNumber',0)
-    //     if(customizationValidation()){
-    //         Add1ToCartCounter()
-    //         addProductToCart()
-    //         alert(oneProduct.name + ' a bien été ajouté à votre panier')
-    //         console.log(localStorage)    
-    //     }else{
-    //         alert('Veuillez choisir une personnalisation.')
-    //     }
-    // }else{
-    //     if(customizationValidation()){
-    //         Add1ToCartCounter()
-    //         addProductToCart()
-    //         alert(oneProduct.name + ' a bien été ajouté à votre panier')
-    //         console.log(localStorage)
-    //     }else{
-    //         alert('Veuillez choisir une personnalisation.')
-    //     }
-    // }
-    // displayCartQuantity()

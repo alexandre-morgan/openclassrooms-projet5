@@ -6,11 +6,11 @@ class cart {
             this.products = []
         }else{
             this.products = JSON.parse(localStorage.getItem('cart'))
-            let sumOfProducts = 0
+            let sumProducts = 0
             for(let i = 0; i < this.products.length; i++){
-                sumOfProducts += this.products[i].quantity
+                sumProducts += parseInt(this.products[i].quantity)
             }
-            this.nbProducts = sumOfProducts
+            this.nbProducts = sumProducts
         }
     }
 
@@ -33,28 +33,40 @@ class cart {
         }
 
         // Mise à jour du nombre d'articles dans le panier
+        this.updateNbProducts()
+        }
+
+    deleteToCart(index) {
+        this.products.splice(index,1)
+        this.updateNbProducts()
+        this.saveCartToLocalStorage()
+    }
+
+    updateQuantityOfOneProduct(quantity,index){
+        this.products[index].quantity = quantity
+        this.updateNbProducts()
+        this.saveCartToLocalStorage()
+    }
+
+    updateNbProducts(){
         let sumProducts = 0
         for(let i = 0; i < this.products.length; i++){
-            sumProducts += this.products[i].quantity
+            sumProducts += parseInt(this.products[i].quantity)
         }
         this.nbProducts = sumProducts
     }
 
-    subToCart(product) {
-        this.products = product
+    cartUpdate = function(product,addOrDel){
+        if(addOrDel){
+            this.addToCart(product)
+            this.saveCartToLocalStorage()    
+        }else{
+            this.deleteToCart(product)
+            this.saveCartToLocalStorage()    
+        }
     }
-
-
+    
 }
 
-var cartUpdate = function(cartObject,product,addOrSub){
-    if(addOrSub){
-        cartObject.addToCart(product)
-        cartObject.saveCartToLocalStorage()    
-    }else{
-        cartObject.subToCart(product)
-        cartObject.saveCartToLocalStorage()    
-    }
-}
 
 let cartObject = new cart()

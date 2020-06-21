@@ -11,7 +11,7 @@ let loading = document.getElementById('loading')
 
 // Afficher les produits par catégorie
 var displayProducts = function (results,list,j){
-    loading.innerHTML = ''
+    loading.classList.add('d-none')
     var ul = document.createElement('ul')
     ul.classList.add('list-unstyled')
     list.appendChild(ul)
@@ -79,8 +79,6 @@ let indexParameters = window.location.search
 console.log(indexParameters)
 // Afficher la quantité du panier
 nbProductInCart.innerHTML = cartObject.nbProducts
-
-
 
 getAllProducts().then(function(allProducts){
     switch(indexParameters){
