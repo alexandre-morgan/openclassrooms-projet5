@@ -34,19 +34,27 @@ class cart {
 
         // Mise à jour du nombre d'articles dans le panier
         let sumProducts = 0
-        debugger
         for(let i = 0; i < this.products.length; i++){
             sumProducts += this.products[i].quantity
         }
         this.nbProducts = sumProducts
     }
 
+    subToCart(product) {
+        this.products = product
+    }
+
+
 }
 
-var addToCart = function(cartObject,product){
-    cartObject.addToCart(product)
-    cartObject.saveCartToLocalStorage()
+var cartUpdate = function(cartObject,product,addOrSub){
+    if(addOrSub){
+        cartObject.addToCart(product)
+        cartObject.saveCartToLocalStorage()    
+    }else{
+        cartObject.subToCart(product)
+        cartObject.saveCartToLocalStorage()    
+    }
 }
 
 let cartObject = new cart()
-console.log('CartObject : ' + cartObject.nbProducts + ' & ' + cartObject.products)

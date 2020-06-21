@@ -107,7 +107,7 @@ getProductByCategorie('teddies').then(function(response){
  
 
 
+nbProductInCart.innerHTML = cartObject.nbProducts
 
 // Afficher la quantité du panier
-nbProductInCart.innerHTML = localStorage.getItem('cartNumber')
 console.log(localStorage.getItem('cartNumber'))

@@ -1,63 +1,11 @@
-// Fonction pour créer une requête http valide sur tous les navigateurs
-var getHttpRequest = function (){
-    if (window.XMLHttpRequest) { // Mozilla, Safari,...
-        httpRequest = new XMLHttpRequest();
-        if (httpRequest.overrideMimeType) {
-          httpRequest.overrideMimeType('text/xml');
-        }
-    }
-    else if (window.ActiveXObject) { // IE
-        try {
-          httpRequest = new ActiveXObject("Msxml2.XMLHTTP");
-        }
-        catch (e) {
-          try {
-            httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
-          }
-          catch (e) {}
-        }
-    }
-    
-    if (!httpRequest) {
-        alert('Abandon :( Impossible de créer une instance XMLHTTP');
-        return false;
-    }
-    
-    return httpRequest
-}
-
+// Variables
 let cartList = document.getElementById('cart')
 let categorieOfProduct
 let dataOfProduct
 let data
 let sumPrice=0
-let nbProductInCart = document.getElementsByClassName('nbProductInCart')
+let nbProductInCart = document.getElementById('nbProductInCart')
 let totalPrice = document.getElementById('totalPrice')
-
-
-
-var getProduct = function(categorie,id){
-    let request = new getHttpRequest()
-    request.open('GET','http://localhost:3000/api/' + categorie + '/' + id,false)
-    
-    request.onreadystatechange = function(){
-        if(request.readyState === 4 && request.status === 200){
-            return JSON.parse(request.responseText)
-        }else{
-            alert('Problème de connexion avec le server')
-        }
-    }
-    request.send()
-    return request.onreadystatechange()
-}
-
-
-var sub1ToCartCounter= function(){
-    let quantity = localStorage.getItem('cartNumber')
-    quantity--
-    localStorage.setItem('cartNumber',quantity)
-}
-
 
 
 // Afficher les produits du panier
@@ -148,51 +96,38 @@ var displayProductsInCart = function (results,cat,index){
 }
 
 
-// Afficher la quantité du panier
-var displayCartQuantity = function(){
-    for(let i =0; i < nbProductInCart.length; i++){
-        nbProductInCart[i].innerHTML = localStorage.getItem('cartNumber')
-        console.log(localStorage.getItem('cartNumber'))        
-    }
-    totalPrice.innerHTML = sumPrice + ' €'
-}
 
 // Event for delete a product of cart
 var addEventOnTrash = function(i){
     let trash = document.getElementById('trash' + i)
     trash.addEventListener('click', function(e){
         e.preventDefault()
-        localStorage.removeItem('product_' + i)
-        sub1ToCartCounter()
+        cartObject.products.splice(i,1)
+        cartUpdate(cartObject,cartObject.products,false)
         window.location.reload()
     })
-    console.log(localStorage)
 }
 
 
 // PROGRAMME DE FONCTIONNEMENT
 
+// Affichage de la quantité de produit dans le panier
+nbProductInCart.innerHTML = cartObject.nbProducts
+
 // Test si panier vide
-if(localStorage.getItem('cartNumber') === null){
+if(cartObject.products.length === 0){
     // Si panier vide
     let message = document.createElement('p')
     message.classList.add('text-center','h2')
     message.innerHTML = 'Votre panier est vide.'
     cartList.appendChild(message)
+
 } else{
     // Si panier NON vide
-    for(let i = 1; i < localStorage.length; i++){     
-        dataOfProduct = localStorage.getItem('product_' + [i]).split(',')
-        categorieOfProduct = dataOfProduct[0]
-        idOfProduct = dataOfProduct[1]
-        data = getProduct(categorieOfProduct,idOfProduct)
-        sumPrice += data.price/100
-        displayProductsInCart(data,categorieOfProduct,i)
+    for(let i = 0; i < cartObject.products.length; i++){     
+        displayProductsInCart(cartObject.products[i],cartObject.products[i].category,i)
         addEventOnTrash(i)
     }
-    console.log(sumPrice)
-    displayCartQuantity() 
 }
-console.log(localStorage)
 
 

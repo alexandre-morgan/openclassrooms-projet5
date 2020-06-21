@@ -77,6 +77,9 @@ var getAllProducts = function(){
 // PROGRAMME DE FONCTIONNEMENT
 let indexParameters = window.location.search
 console.log(indexParameters)
+// Afficher la quantité du panier
+nbProductInCart.innerHTML = cartObject.nbProducts
+
 
 
 getAllProducts().then(function(allProducts){
@@ -100,6 +103,3 @@ getAllProducts().then(function(allProducts){
 })
 
 
-// Afficher la quantité du panier
-nbProductInCart.innerHTML = localStorage.getItem('cartNumber')
-console.log(localStorage.getItem('cartNumber'))

@@ -85,9 +85,6 @@ var displayCartQuantity = function(){
 }
 
 
-
-// console.log(oneProduct)
-
 // Récupérer le produit
 var getProduct = function(){
     return getOneProduct(oneProductParameters[0],oneProductParameters[1]).then(function(response){
@@ -108,7 +105,8 @@ getProduct().then(function(oneProduct){
 addToCartBtn.addEventListener('click',function(){
     if(customizationValidation()){
         oneProduct.quantity = selectQuantity.selectedIndex + 1
-        addToCart(cartObject,oneProduct)
+        oneProduct.category = oneProductParameters[0]
+        cartUpdate(cartObject,oneProduct,true)
         nbProductInCart.innerHTML = cartObject.nbProducts
         $('#modalOK').modal('show')
         modalBodyName.innerHTML = oneProduct.name
