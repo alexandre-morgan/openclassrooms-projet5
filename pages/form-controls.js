@@ -121,6 +121,7 @@ var form = document.getElementById('form')
 
 form.addEventListener('submit', function(e){
     e.preventDefault()
+    // Construction de l'Objet envoyé sur le serveur
     let dataToSend = {
         contact: {
             firstName: inputFirstName.value,
@@ -131,6 +132,7 @@ form.addEventListener('submit', function(e){
         },
         products: productsList
     };
+    // Requête AJAX
     ajaxRequestPost(dataToSend).then(function(response){
         console.log(JSON.parse(response))
     })
