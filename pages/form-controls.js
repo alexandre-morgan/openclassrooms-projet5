@@ -1,3 +1,5 @@
+
+
 let inputName = document.getElementById('inputName')
 let inputNameValidation = false
 let inputFirstName = document.getElementById('inputFirstName')
@@ -75,15 +77,15 @@ inputCity.addEventListener('input', function(response){
 })
 
 
-submitButton.addEventListener('click', function(e){
-    e.preventDefault()
-    if(inputNameValidation && inputFirstNameValidation && inputEmailValidation
-        && inputAddressValidation && inputCityValidation){
-        // METHODE POST
-    }else{
-        invalidSubmit.innerHTML = "Veuillez renseigner correctement vos coordonnées"
-    }
-})
+// submitButton.addEventListener('click', function(e){
+//     e.preventDefault()
+//     if(inputNameValidation && inputFirstNameValidation && inputEmailValidation
+//         && inputAddressValidation && inputCityValidation){
+//         // METHODE POST
+//     }else{
+//         invalidSubmit.innerHTML = "Veuillez renseigner correctement vos coordonnées"
+//     }
+// })
 
 
 
@@ -98,3 +100,50 @@ function nameIsValid(value){
 function notEmpty(value){
     return /\S+/.test(value)
 }
+
+class Contact {
+    constructor(a,b,c,d,e){
+        this.firstName = a
+        this.lastName = b
+        this.address = c
+        this.city = d
+        this.email = e
+    }
+}
+
+let productsList = []
+for(let i = 0; i < cartObject.products.length; i++){
+    productsList.push(cartObject.products[i]._id)
+}
+
+
+var form = document.getElementById('form')
+
+form.addEventListener('submit', function(e){
+    e.preventDefault()
+    let dataToSend = {
+        contact: {
+            firstName: inputFirstName.value,
+            lastName: inputName.value,
+            address: inputAddress.value,
+            city: inputCity.value,
+            email: inputEmail.value
+        },
+        products: productsList
+    };
+    ajaxRequestPost(dataToSend).then(function(response){
+        console.log(JSON.parse(response))
+    })
+})
+
+
+// Expects request to contain:
+//  * contact: {
+//  *   firstName: string,
+//  *   lastName: string,
+//  *   address: string,
+//  *   city: string,
+//  *   email: string
+//  * }
+//  * products: [string] <-- array of product _id
+

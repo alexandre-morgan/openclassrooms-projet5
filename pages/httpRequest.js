@@ -67,19 +67,20 @@ var displayErrorConnection = function(){
 }
 
 
-// var postCart = function(){
-//     return new Promise(function(resolve, reject){
-//         let request = new getHttpRequest()
-//         request.onreadystatechange = function(){
-//             if(request.readyState === 4){
-//                 if(request.status === 200){
-//                     resolve(request.responseText) 
-//                 }else{
-//                     reject(request)
-//                 }
-//             }
-//         }
-//         request.open('POST','http://localhost:3000/api/order',true)
-//         request.send()
-//     })
-// }
+var ajaxRequestPost = (data) => {
+    return new Promise((resolve, reject) => {
+      var request = new XMLHttpRequest();
+        //retour de la requette si tout c'est bien passé
+        request.onreadystatechange = function() {
+            if (this.readyState == XMLHttpRequest.DONE && this.status == 201) {
+                var response = JSON.parse(this.responseText);
+                resolve(response);
+            }else if (this.readyState == XMLHttpRequest.DONE && this.status != 201) {
+                reject("la requette revoie une erreur: " + this.status);
+            }
+        };
+        request.open("POST", "http://localhost:3000/api/furniture/order",true);
+        request.setRequestHeader("Content-Type", "application/json");//Envoi au format JSON
+        request.send(JSON.stringify(data));//data est un objet JS
+    })
+  }
