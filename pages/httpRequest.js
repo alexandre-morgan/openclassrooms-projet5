@@ -65,3 +65,21 @@ var getOneProduct = function(categorie,id) {
 var displayErrorConnection = function(){
     console.error('Probleme de connexion avec le serveur')
 }
+
+
+// var postCart = function(){
+//     return new Promise(function(resolve, reject){
+//         let request = new getHttpRequest()
+//         request.onreadystatechange = function(){
+//             if(request.readyState === 4){
+//                 if(request.status === 200){
+//                     resolve(request.responseText) 
+//                 }else{
+//                     reject(request)
+//                 }
+//             }
+//         }
+//         request.open('POST','http://localhost:3000/api/order',true)
+//         request.send()
+//     })
+// }

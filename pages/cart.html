@@ -99,11 +99,17 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="inputName">Nom</label>
-                                        <input type="text" class="form-control" id="inputName" required>
+                                        <input type="text" class="form-control" id="inputName" aria-describedby="nameHelpBlock" required>
+                                        <small id="nameHelpBlock" class="form-text text-muted">
+                                            Accents et '-' seulement
+                                        </small>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="inputFirstName">Prénom</label>
-                                        <input type="text" class="form-control" id="inputFirstName" required>
+                                        <input type="text" class="form-control" id="inputFirstName" aria-describedby="firtNameHelpBlock" required>
+                                        <small id="firtNameHelpBlock" class="form-text text-muted">
+                                            Accents et '-' seulement
+                                        </small>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -120,13 +126,12 @@
                                         <input type="email" class="form-control" id="inputEmail" placeholder="xxx@xxx.fr" required>
                                     </div>
                                 </div>
-                                
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-info" id="submitButton">Commander</button>
+                                    <div id="invalid-submit" class="text-danger"></div>
+                                </div>        
                             </form>
-                
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-info">Commander</button>
                         </div>
                     </div>
                 </div>
