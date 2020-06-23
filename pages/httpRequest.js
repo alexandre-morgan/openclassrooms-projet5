@@ -62,25 +62,28 @@ var getOneProduct = function(categorie,id) {
 
 }
 
-var displayErrorConnection = function(){
-    console.error('Probleme de connexion avec le serveur')
+var displayErrorConnection = function(e){
+    alert('Erreur de connexion avec le server', e)
 }
 
 
 var ajaxRequestPost = (data) => {
     return new Promise((resolve, reject) => {
-      var request = new XMLHttpRequest();
+      var request = new getHttpRequest();
         //retour de la requette si tout c'est bien passé
         request.onreadystatechange = function() {
-            if (this.readyState == XMLHttpRequest.DONE && this.status == 201) {
-                var response = JSON.parse(this.responseText);
-                resolve(response);
-            }else if (this.readyState == XMLHttpRequest.DONE && this.status != 201) {
-                reject("la requette revoie une erreur: " + this.status);
+            if(request.readyState === 4){
+                if(request.status === 201){
+                    resolve(JSON.parse(request.responseText)) 
+                }else{
+                    reject("la requette renvoie une erreur: " + this.status)
+                }
             }
         };
         request.open("POST", "http://localhost:3000/api/furniture/order",true);
         request.setRequestHeader("Content-Type", "application/json");//Envoi au format JSON
-        request.send(JSON.stringify(data));//data est un objet JS
+        let dataToSend = JSON.stringify(data)
+        console.log(dataToSend)
+        request.send(dataToSend);//data est un objet JS
     })
   }

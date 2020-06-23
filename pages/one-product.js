@@ -86,6 +86,20 @@ var customizationValidation = function(){
     }
 }
 
+var customizationError = function(){
+    customizationProduct.classList.add('border-danger')
+    $('#modalNOK').modal('show')
+    customizationProduct.addEventListener('change', function(){
+        if(customizationProduct.selectedIndex === 0){
+            customizationProduct.classList.remove('border-success')
+            customizationProduct.classList.add('border-danger')
+        }else {
+            customizationProduct.classList.remove('border-danger')
+            customizationProduct.classList.add('border-success')
+        }
+    })
+}
+
 
 // Récupérer le produit
 var getProduct = function(){
@@ -106,7 +120,7 @@ var addEventToAddToCart = function() {
             $('#modalOK').modal('show')
             modalBodyName.innerHTML = oneProduct.name
             }else{
-            $('#modalNOK').modal('show')
+            customizationError()
         }
     })
     
@@ -119,7 +133,7 @@ nbProductInCart.innerHTML = cartObject.nbProducts
 getProduct().then(function(oneProduct){
     displayOneProduct()
     addEventToAddToCart()
-})
+}).catch(displayErrorConnection)
 
 let cartResetBtn = document.getElementById('cartReset')
 

@@ -77,17 +77,6 @@ inputCity.addEventListener('input', function(response){
 })
 
 
-// submitButton.addEventListener('click', function(e){
-//     e.preventDefault()
-//     if(inputNameValidation && inputFirstNameValidation && inputEmailValidation
-//         && inputAddressValidation && inputCityValidation){
-//         // METHODE POST
-//     }else{
-//         invalidSubmit.innerHTML = "Veuillez renseigner correctement vos coordonnées"
-//     }
-// })
-
-
 
 function emailIsValid(value){
     return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)
@@ -101,15 +90,6 @@ function notEmpty(value){
     return /\S+/.test(value)
 }
 
-class Contact {
-    constructor(a,b,c,d,e){
-        this.firstName = a
-        this.lastName = b
-        this.address = c
-        this.city = d
-        this.email = e
-    }
-}
 
 let productsList = []
 for(let i = 0; i < cartObject.products.length; i++){
@@ -121,31 +101,27 @@ var form = document.getElementById('form')
 
 form.addEventListener('submit', function(e){
     e.preventDefault()
-    // Construction de l'Objet envoyé sur le serveur
-    let dataToSend = {
-        contact: {
-            firstName: inputFirstName.value,
-            lastName: inputName.value,
-            address: inputAddress.value,
-            city: inputCity.value,
-            email: inputEmail.value
-        },
-        products: productsList
-    };
-    // Requête AJAX
-    ajaxRequestPost(dataToSend).then(function(response){
-        console.log(JSON.parse(response))
-    })
+    //Validation du form
+    if(inputNameValidation && inputFirstNameValidation && 
+        inputAddressValidation && inputCityValidation && inputEmailValidation){
+        // Construction de l'Objet envoyé sur le serveur
+        let dataToSend = {
+            contact: {
+                firstName: inputFirstName.value,
+                lastName: inputName.value,
+                address: inputAddress.value,
+                city: inputCity.value,
+                email: inputEmail.value
+            },
+            products: productsList
+        };
+        console.log(dataToSend)
+        // Requête AJAX
+        ajaxRequestPost(dataToSend).then(function(response){
+            console.log(response)
+        })
+    } else {
+        invalidSubmit.innerHTML = "Veuillez renseigner correctement vos coordonnées"
+    }
 })
-
-
-// Expects request to contain:
-//  * contact: {
-//  *   firstName: string,
-//  *   lastName: string,
-//  *   address: string,
-//  *   city: string,
-//  *   email: string
-//  * }
-//  * products: [string] <-- array of product _id
 

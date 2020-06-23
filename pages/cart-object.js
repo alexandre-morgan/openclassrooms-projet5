@@ -23,7 +23,7 @@ class cart {
         let contain = false
         for(let i = 0; i < this.products.length; i++){
             if(this.products[i]._id === product._id){
-                this.products[i].quantity += product.quantity
+                this.products[i].quantity += parseInt(product.quantity)
                 contain = true
             }
         }

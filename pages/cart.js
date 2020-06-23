@@ -164,8 +164,6 @@ var updateData = function(){
 
 
 // PROGRAMME DE FONCTIONNEMENT
-
-
 updateData()
 
 // Test si panier vide
@@ -177,6 +175,7 @@ if(cartObject.products.length === 0){
     cartList.appendChild(message)
 
 } else{
+    console.log()
     // Si panier NON vide
     for(let i = 0; i < cartObject.products.length; i++){     
         displayProductsInCart(cartObject.products[i],cartObject.products[i].category,i)
@@ -184,5 +183,3 @@ if(cartObject.products.length === 0){
         addEventOnQuantity(i)
     }
 }
-
-
