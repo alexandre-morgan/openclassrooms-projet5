@@ -67,7 +67,7 @@ var displayErrorConnection = function(e){
 }
 
 
-var ajaxRequestPost = (data) => {
+var ajaxRequestPost = (data,categorie) => {
     return new Promise((resolve, reject) => {
       var request = new getHttpRequest();
         //retour de la requette si tout c'est bien passé
@@ -80,7 +80,7 @@ var ajaxRequestPost = (data) => {
                 }
             }
         };
-        request.open("POST", "http://localhost:3000/api/furniture/order",true);
+        request.open("POST", "http://localhost:3000/api/" + categorie + "/order",true);
         request.setRequestHeader("Content-Type", "application/json");//Envoi au format JSON
         let dataToSend = JSON.stringify(data)
         console.log(dataToSend)

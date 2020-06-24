@@ -115,10 +115,10 @@ form.addEventListener('submit', function(e){
             },
             products: productsList
         };
-        console.log(dataToSend)
         // Requête AJAX
-        ajaxRequestPost(dataToSend).then(function(response){
-            console.log(response)
+        ajaxRequestPost(dataToSend, localStorage.getItem('category')).then(function(response){
+            localStorage.setItem('order-confirmation',JSON.stringify(response))
+            location.href = "./order-confirmation.html"
         })
     } else {
         invalidSubmit.innerHTML = "Veuillez renseigner correctement vos coordonnées"

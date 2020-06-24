@@ -1,6 +1,11 @@
 class cart {
     
     constructor() {
+        if(localStorage.getItem('order-confirmation') !== null &&
+        localStorage.getItem('cart') !== null){
+            localStorage.removeItem('order-confirmation')
+            localStorage.removeItem('cart')
+        }
         if(localStorage.getItem('cart') === null){
             this.nbProducts = 0
             this.products = []
