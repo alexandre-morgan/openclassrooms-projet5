@@ -33,7 +33,7 @@ var getProductsByCategorie = function(categorie){
         request.onreadystatechange = function(){
             if(request.readyState === 4){
                 if(request.status === 200){
-                    resolve(request.responseText) 
+                    resolve(JSON.parse(request.responseText))
                 }else{
                     reject(request)
                 }

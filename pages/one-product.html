@@ -33,9 +33,9 @@
                                         Produits
                                     </a>
                                     <div class="dropdown-menu navbar-dark bg-dark" aria-labelledby="navbarDropdownMenuLink">
-                                        <a class="dropdown-item" href="../index.html?categorie=teddies">Ours en peluche</a>
-                                        <a class="dropdown-item" href="../index.html?categorie=cameras">Caméras vintage</a>
-                                        <a class="dropdown-item" href="../index.html?categorie=furniture">Meubles en chêne</a>
+                                        <a class="dropdown-item" href="../index.html?categorie=teddies">teddies</a>
+                                        <a class="dropdown-item" href="../index.html?categorie=cameras">cameras</a>
+                                        <a class="dropdown-item" href="../index.html?categorie=furniture">furniture</a>
                                     </div>
                                   </li>
                             </ul>
@@ -148,6 +148,29 @@
                     </div>
                 </div>
             </div>
+            <!-- Modal pour changement de catégorie -->
+            <!-- Modal -->
+            <div class="modal fade" id="productSwitchModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="productSwitchModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="productSwitchModalLabel">ATTENTION</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Voulez-vous vraiment changer de produits ? </br>
+                            IMPORTANT : Votre panier sera vidé.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="productSwitchNo" class="btn btn-info" data-dismiss="modal">Garder ce type de produits</button>
+                            <button type="button" id="productSwitchYes" class="btn btn-danger">Changer de type de produits</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </main>
 
 
@@ -175,6 +198,7 @@
         <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="httpRequest.js"></script>
         <script src="cart-object.js"></script>
+        <script src="categoriesSwitch.js"></script>
         <script src="one-product.js"></script>
     </body>
 </html>

@@ -1,7 +1,7 @@
 class cart {
     
     constructor() {
-        if(localStorage.length === 0){
+        if(localStorage.getItem('cart') === null){
             this.nbProducts = 0
             this.products = []
         }else{
@@ -70,3 +70,6 @@ class cart {
 
 
 let cartObject = new cart()
+
+
+

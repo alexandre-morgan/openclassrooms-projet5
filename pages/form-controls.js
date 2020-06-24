@@ -104,7 +104,7 @@ form.addEventListener('submit', function(e){
     //Validation du form
     if(inputNameValidation && inputFirstNameValidation && 
         inputAddressValidation && inputCityValidation && inputEmailValidation){
-        // Construction de l'Objet envoyé sur le serveur
+        //Construction de l'Objet envoyé sur le serveur
         let dataToSend = {
             contact: {
                 firstName: inputFirstName.value,
@@ -124,4 +124,3 @@ form.addEventListener('submit', function(e){
         invalidSubmit.innerHTML = "Veuillez renseigner correctement vos coordonnées"
     }
 })
-

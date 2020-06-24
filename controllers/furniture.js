@@ -86,7 +86,8 @@ exports.orderFurniture = (req, res, next) => {
     }
   ).catch(
     (error) => {
-      return res.status(500).json(new Error(error));
+      return 'hello'
+      //res.status(500).json(new Error(error));
     }
   );
 };

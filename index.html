@@ -15,7 +15,7 @@
             <div class="container">
                 <div class="row">
                     <nav class="col navbar navbar-expand-md navbar-dark">
-                        <a class="navbar-brand" href="index.html">
+                        <a class="navbar-brand goToIndex" href="index.html">
                             <img src="images/logo.png" alt="logo Orinoco"/>
                         </a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" 
@@ -25,7 +25,7 @@
                         <div class="collapse navbar-collapse" id="navbarNav">
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="index.html">Accueil <span class="sr-only">(current)</span></a>
+                                    <a class="nav-link goToIndex" href="index.html">Accueil <span class="sr-only">(current)</span></a>
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" 
@@ -33,9 +33,9 @@
                                         Produits
                                     </a>
                                     <div class="dropdown-menu navbar-dark bg-dark" aria-labelledby="navbarDropdownMenuLink">
-                                        <a class="dropdown-item" href="index.html?categorie=teddies">Ours en peluche</a>
-                                        <a class="dropdown-item" href="index.html?categorie=cameras">Caméras vintage</a>
-                                        <a class="dropdown-item" href="index.html?categorie=furniture">Meubles en chêne</a>
+                                        <a class="dropdown-item" id="teddiesProducts" href="index.html?categorie=teddies">teddies</a>
+                                        <a class="dropdown-item" id="camerasProducts" href="index.html?categorie=cameras">cameras</a>
+                                        <a class="dropdown-item" id="furnitureProducts" href="index.html?categorie=furniture">furniture</a>
                                     </div>
                                   </li>
                             </ul>
@@ -56,9 +56,41 @@
         </header>
 
         <main class="container">
+            <div class="jumbotron jumbotron-fluid">
+                <div class="container">
+                  <h1 class="display-4">Bienvenue chez Orinoco</h1>
+                  <p class="lead">Notre credo ? Vous offrir une expérience de e-commerce qui se démarque par des applications thématiques ne vendant qu'un seul groupe de produits.
+                    </br> Vous trouverez ici nos 'Ours en peluche faits à la main', 'Cameras vintage' et 'Meubles en chêne' séparément.
+                    </br> <strong>Vous ne pouvez commander qu'un seul type de produit à la fois</strong>
+                    </br> <small>Un changement de type de produit avant la commande videra votre panier en cours.</small>
+                </div>
+            </div>
             <h2>Listes des articles</h2>
             <span id="loading">CHARGEMENT DES ARTICLES...</span>
             <div class="row" id="productsList"></div>
+
+            <!-- Modal pour changement de catégorie -->
+            <!-- Modal -->
+            <div class="modal fade" id="productSwitchModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="productSwitchModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="productSwitchModalLabel">ATTENTION</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Voulez-vous vraiment changer de produits ? </br>
+                            IMPORTANT : Votre panier sera vidé.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="productSwitchNo" class="btn btn-info" data-dismiss="modal">Garder ce type de produits</button>
+                            <button type="button" id="productSwitchYes" class="btn btn-danger">Changer de type de produits</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
         <footer class="bg-light mt-5">
             <div class="container">
@@ -83,6 +115,7 @@
         <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="pages/httpRequest.js"></script>
         <script src="pages/cart-object.js"></script>
+        <script src="pages/categoriesSwitch.js"></script>
         <script src="index.js"></script>
     </body>
 </html>
