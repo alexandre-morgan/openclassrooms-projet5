@@ -76,5 +76,9 @@ class cart {
 
 let cartObject = new cart()
 
-
-
+const priceFormating = function(priceToFormat){
+    priceToFormat = priceToFormat.toString()
+    let priceCent = priceToFormat.slice(-2)
+    let priceInt = priceToFormat.slice(0, priceToFormat.length - 2)
+    return priceInt + ',' + priceCent + ' €'
+}

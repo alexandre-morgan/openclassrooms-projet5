@@ -1,4 +1,4 @@
-// Variables
+// Variables pour récupérer les éléments qui vont être modifiés ou ajoutés
 let imgProduct = document.getElementById('imgProduct')
 let nameProduct = document.getElementById('name')
 let priceProduct = document.getElementById('price')
@@ -23,12 +23,12 @@ function extractUrlParams () {
     return f;
     }
 
-// Afficher les données du produit sélectionné
+// Fonction pour afficher les données du produit sélectionné
 var displayOneProduct = function(){
     
     imgProduct.setAttribute('src',oneProduct.imageUrl)
     nameProduct.innerHTML = oneProduct.name
-    priceProduct.innerHTML = oneProduct.price/100 + ' €'
+    priceProduct.innerHTML = priceFormating(oneProduct.price)
     descriptionProduct.innerHTML = oneProduct.description
     displayCustomization(oneProductParameters[0])
 }
@@ -77,6 +77,7 @@ var displayCustomization = function(categorie){
     }
 }
 
+// Function pour vérifier la sélection de la personnalisation
 var customizationValidation = function(){
     let choice = customizationProduct.selectedIndex
     if(choice === 0){
@@ -86,6 +87,7 @@ var customizationValidation = function(){
     }
 }
 
+// Function d'affichage de l'erreur si aucune personnalisation n'a été choisie
 var customizationError = function(){
     customizationProduct.classList.add('border-danger')
     $('#modalNOK').modal('show')
@@ -109,7 +111,7 @@ var getProduct = function(){
     })
 }
 
-// Ajouter event sur addToCart
+// Ajouter event sur le bouton addToCart
 var addEventToAddToCart = function() {
     addToCartBtn.addEventListener('click',function(){
         if(customizationValidation()){
@@ -127,18 +129,11 @@ var addEventToAddToCart = function() {
 }
 
 
-// PROGRAMME DE FONCTIONNEMENT
+// PROGRAMME DE FONCTIONNEMENT (se déroule lorsque la page charge)
 nbProductInCart.innerHTML = cartObject.nbProducts
 
 getProduct().then(function(oneProduct){
     displayOneProduct()
     addEventToAddToCart()
 }).catch(displayErrorConnection)
-
-let cartResetBtn = document.getElementById('cartReset')
-
-cartResetBtn.addEventListener('click', function(){
-    localStorage.clear()
-    displayCartQuantity()
-})
 

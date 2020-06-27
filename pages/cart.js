@@ -1,4 +1,4 @@
-// Variables
+// Variables pour récupérer les éléments qui vont être modifiés ou ajoutés
 let cartList = document.getElementById('cart')
 let categorieOfProduct
 let dataOfProduct
@@ -55,7 +55,7 @@ var displayProductsInCart = function (results,cat,index){
                         // p pour le prix
                         let pPrice = document.createElement('p')
                         pPrice.classList.add('text-nowrap')
-                        pPrice.innerHTML=results.price/100 + ' €'
+                        pPrice.innerHTML = priceFormating(results.price)
                         divCol.appendChild(pPrice)
 
                 // Div row in container
@@ -121,12 +121,13 @@ var displayProductsInCart = function (results,cat,index){
 var displayTotalPrice = function(empty){
     if(empty){
         totalPrice.innerHTML = 0
+
     }else{
         let sumPrice = 0
         for(let i = 0; i <cartObject.products.length; i++){
             sumPrice += cartObject.products[i].price * cartObject.products[i].quantity
         }
-        totalPrice.innerHTML = sumPrice / 100 + ' €'
+        totalPrice.innerHTML = priceFormating(sumPrice)
     }
 }
 
@@ -137,8 +138,7 @@ var addEventOnTrash = function(i){
     trash.addEventListener('click', function(e){
         e.preventDefault()
         cartObject.deleteToCart(i)
-        updateData()
-        this.parentNode.parentNode.parentNode.parentNode.parentNode.remove()
+        location.reload()
     })
 }
 
@@ -160,26 +160,23 @@ var updateData = function(){
     }else{
         displayTotalPrice(false)
     }
+    // Test si panier vide
+    if(cartObject.products.length === 0){
+        // Si panier vide
+        let message = document.createElement('p')
+        message.classList.add('text-center','h2')
+        message.innerHTML = 'Votre panier est vide.'
+        cartList.appendChild(message)
+    }
 }
 
 
 // PROGRAMME DE FONCTIONNEMENT
 updateData()
 
-// Test si panier vide
-if(cartObject.products.length === 0){
-    // Si panier vide
-    let message = document.createElement('p')
-    message.classList.add('text-center','h2')
-    message.innerHTML = 'Votre panier est vide.'
-    cartList.appendChild(message)
-
-} else{
-    console.log()
-    // Si panier NON vide
-    for(let i = 0; i < cartObject.products.length; i++){     
-        displayProductsInCart(cartObject.products[i],cartObject.products[i].category,i)
-        addEventOnTrash(i)
-        addEventOnQuantity(i)
-    }
+// Si panier NON vide
+for(let i = 0; i < cartObject.products.length; i++){     
+    displayProductsInCart(cartObject.products[i],cartObject.products[i].category,i)
+    addEventOnTrash(i)
+    addEventOnQuantity(i)
 }

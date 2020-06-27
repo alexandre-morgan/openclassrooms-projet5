@@ -1,4 +1,4 @@
-// Variables
+// Variables pour récupérer les éléments qui vont être modifiés ou ajoutés
 let allProducts = []
 let categories=['teddies','cameras','furniture']
 let teddiesList = document.getElementById(categories[0])
@@ -27,6 +27,7 @@ var displayProducts = function (results){
     divCol.classList.add('col-12','m-auto')
     ul.classList.add('list-unstyled','text-center')
 
+    // Boucle sur les produits d'une catégorie
     for(let i = 0; i < results.length; i++){
         let li = document.createElement('li')
         li.classList.add('list-inline-item')
@@ -54,7 +55,7 @@ var displayProducts = function (results){
         // Description de la carte
         let description = document.createElement('p')
         description.classList.add('card-text')
-        description.innerHTML=results[i].price/100 + " €"
+        description.innerHTML = priceFormating(results[i].price)
         // Lien de la carte
         let lien = document.createElement('a')
         //lien.classList.add('d-none')
@@ -77,7 +78,6 @@ var displayProducts = function (results){
 
 // PROGRAMME DE FONCTIONNEMENT
 let indexParameters = window.location.search
-console.log(indexParameters)
 // Afficher la quantité du panier
 nbProductInCart.innerHTML = cartObject.nbProducts
 
