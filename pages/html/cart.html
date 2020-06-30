@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
 
-        <link rel="icon" type="image/png" href="../images/logo_orinoco.png"/>
+        <link rel="icon" type="image/png" href="../../images/logo_orinoco.png"/>
 
         <title>Orinoco</title>
     </head>
@@ -17,8 +17,8 @@
             <div class="container">
                 <div class="row">
                     <nav class="col navbar navbar-expand-md navbar-dark">
-                        <a class="navbar-brand" href="../index.html">
-                            <img src="../images/logo.png" alt="logo Orinoco"/>
+                        <a class="navbar-brand" href="../../index.html">
+                            <img src="../../images/logo.png" alt="logo Orinoco"/>
                         </a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" 
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,7 +27,7 @@
                         <div class="collapse navbar-collapse" id="navbarNav">
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="../index.html">Accueil <span class="sr-only">(current)</span></a>
+                                    <a class="nav-link" href="../../index.html">Accueil <span class="sr-only">(current)</span></a>
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" 
@@ -35,9 +35,9 @@
                                         Changer de catégorie de produits
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <a class="dropdown-item" href="../index.html?categorie=teddies">teddies</a>
-                                        <a class="dropdown-item" href="../index.html?categorie=cameras">cameras</a>
-                                        <a class="dropdown-item" href="../index.html?categorie=furniture">furniture</a>
+                                        <a class="dropdown-item" href="../../index.html?categorie=teddies">teddies</a>
+                                        <a class="dropdown-item" href="../../index.html?categorie=cameras">cameras</a>
+                                        <a class="dropdown-item" href="../../index.html?categorie=furniture">furniture</a>
                                     </div>
                                   </li>
                             </ul>
@@ -79,7 +79,7 @@
                         </div>
                         <div class="row">
                             <div class="col text-right m-2">
-                                <button class="btn btn-info" data-toggle="modal" data-target="#formModal">Commander</a>
+                                <button class="btn btn-info" id="formModalButton">Commander</a>
                             </div>
                         </div>
                     </div>
@@ -122,6 +122,9 @@
                                     <div class="form-group col-md-5">
                                         <label for="inputCity">City</label>
                                         <input type="text" class="form-control" id="inputCity" required>
+                                        <small id="nameHelpBlock" class="form-text text-muted">
+                                            Accents, espaces et '-' seulement
+                                        </small>
                                     </div>
                                     <div class="form-group col-md-7">
                                         <label for="inputEmail">Email</label>
@@ -160,6 +163,27 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Modal si panier vide -->
+            <div class="modal fade" id="emptyCartModal" tabindex="-1" role="dialog" aria-labelledby="emptyCartModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="emptyCartModalLabel">ATTENTION</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Votre panier est vide ! </br>
+                            Ajouter un article au panier pour passer une commande.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
 
 
@@ -182,11 +206,11 @@
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-        <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="httpRequest.js"></script>
-        <script src="cart-object.js"></script>
-        <script src="categoriesSwitch.js"></script>
-        <script src="form-controls.js"></script>
-        <script src="cart.js"></script>
+        <script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="../js/httpRequest.js"></script>
+        <script src="../js/cart-object.js"></script>
+        <script src="../js/categoriesSwitch.js"></script>
+        <script src="../js/form-controls.js"></script>
+        <script src="../js/cart.js"></script>
     </body>
 </html>

@@ -6,6 +6,7 @@ let data
 let sumPrice=0
 let nbProductInCart = document.getElementById('nbProductInCart')
 let totalPrice = document.getElementById('totalPrice')
+let formModalButton = document.getElementById('formModalButton')
 
 
 // Afficher les produits du panier
@@ -75,7 +76,7 @@ var displayProductsInCart = function (results,cat,index){
                         + '?categorie=' + cat + '&' + 'id=' + results._id)
                             // Icon du lien
                             let imgLinkProduct = document.createElement('img')
-                            imgLinkProduct.setAttribute('src','../node_modules/bootstrap-icons/icons/search.svg')
+                            imgLinkProduct.setAttribute('src','../../node_modules/bootstrap-icons/icons/search.svg')
                             divLinkProduct.appendChild(imgLinkProduct)
                             divColLinkProduct.appendChild(divLinkProduct)
                     
@@ -110,7 +111,7 @@ var displayProductsInCart = function (results,cat,index){
                         divTrash.setAttribute('href','#')
                             // Icon du lien
                             let imgTrash = document.createElement('img')
-                            imgTrash.setAttribute('src','../node_modules/bootstrap-icons/icons/trash.svg')
+                            imgTrash.setAttribute('src','../../node_modules/bootstrap-icons/icons/trash.svg')
                             divTrash.appendChild(imgTrash)
                             divColLinkTrash.appendChild(divTrash)
 
@@ -132,7 +133,7 @@ var displayTotalPrice = function(empty){
 }
 
 
-// Event for delete a product of cart
+// Ajouter l'évènement de supprimer l'article sur l'icone corbeille
 var addEventOnTrash = function(i){
     let trash = document.getElementById('trash' + i)
     trash.addEventListener('click', function(e){
@@ -142,12 +143,24 @@ var addEventOnTrash = function(i){
     })
 }
 
+// Ajouter l'évènement qui change en direct la quantité
 var addEventOnQuantity = function(i){
     let quantityBtn = document.getElementById('inputQuantity' + i)
     quantityBtn.addEventListener('change', function(){
         cartObject.updateQuantityOfOneProduct(quantityBtn.value, i)
         updateData()
     })
+}
+
+// Evènement pour afficher la modal adéquate en fonction du panier vide ou non
+const addEventOnComandButton = function() {
+    formModalButton.addEventListener('click', function() {
+        if(cartObject.products.length === 0){
+            $('#emptyCartModal').modal('show')
+        }else {
+            $('#formModal').modal('show')
+        }
+    })    
 }
 
 var updateData = function(){
@@ -173,7 +186,7 @@ var updateData = function(){
 
 // PROGRAMME DE FONCTIONNEMENT
 updateData()
-
+addEventOnComandButton()
 // Si panier NON vide
 for(let i = 0; i < cartObject.products.length; i++){     
     displayProductsInCart(cartObject.products[i],cartObject.products[i].category,i)

@@ -60,7 +60,7 @@ var displayProducts = function (results){
         let lien = document.createElement('a')
         //lien.classList.add('d-none')
         lien.classList.add('stretched-link')
-        lien.setAttribute('href','pages/one-product.html'
+        lien.setAttribute('href','pages/html/one-product.html'
         + '?categorie=' + localStorage.getItem('category') + '&' + 'id=' + results[i]._id)
 
         

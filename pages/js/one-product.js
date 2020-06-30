@@ -108,7 +108,7 @@ var getProduct = function(){
     return getOneProduct(oneProductParameters[0],oneProductParameters[1]).then(function(response){
         oneProduct = JSON.parse(response)
         return oneProduct
-    })
+    }) 
 }
 
 // Ajouter event sur le bouton addToCart

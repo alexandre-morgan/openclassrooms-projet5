@@ -1,5 +1,4 @@
-
-
+// Liste des inputs du formulaire de contact avec leur booléen de validation
 let inputName = document.getElementById('inputName')
 let inputNameValidation = false
 let inputFirstName = document.getElementById('inputFirstName')
