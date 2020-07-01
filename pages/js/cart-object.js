@@ -1,6 +1,8 @@
+// L'objet cart permet de gérer le panier
 class cart {
     
     constructor() {
+        // Permet de remettre à zéro le panier après avoir quitté la page de confirmation
         if(localStorage.getItem('order-confirmation') !== null &&
         localStorage.getItem('cart') !== null){
             localStorage.removeItem('order-confirmation')

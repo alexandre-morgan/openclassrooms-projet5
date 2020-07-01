@@ -24,7 +24,7 @@ function extractUrlParams () {
     }
 
 // Fonction pour afficher les données du produit sélectionné
-var displayOneProduct = function(){
+const displayOneProduct = function(){
     
     imgProduct.setAttribute('src',oneProduct.imageUrl)
     nameProduct.innerHTML = oneProduct.name
@@ -34,7 +34,7 @@ var displayOneProduct = function(){
 }
 
 // Fonction pour afficher les choix de personnalisation du produit
-var displayCustomization = function(categorie){
+const displayCustomization = function(categorie){
     let customChoices
     let option
     switch(categorie){
@@ -78,7 +78,7 @@ var displayCustomization = function(categorie){
 }
 
 // Function pour vérifier la sélection de la personnalisation
-var customizationValidation = function(){
+const customizationValidation = function(){
     let choice = customizationProduct.selectedIndex
     if(choice === 0){
         return false
@@ -88,7 +88,7 @@ var customizationValidation = function(){
 }
 
 // Function d'affichage de l'erreur si aucune personnalisation n'a été choisie
-var customizationError = function(){
+const customizationError = function(){
     customizationProduct.classList.add('border-danger')
     $('#modalNOK').modal('show')
     customizationProduct.addEventListener('change', function(){
@@ -104,7 +104,7 @@ var customizationError = function(){
 
 
 // Récupérer le produit
-var getProduct = function(){
+const getProduct = function(){
     return getOneProduct(oneProductParameters[0],oneProductParameters[1]).then(function(response){
         oneProduct = JSON.parse(response)
         return oneProduct
@@ -112,7 +112,7 @@ var getProduct = function(){
 }
 
 // Ajouter event sur le bouton addToCart
-var addEventToAddToCart = function() {
+const addEventToAddToCart = function() {
     addToCartBtn.addEventListener('click',function(){
         if(customizationValidation()){
             oneProduct.quantity = selectQuantity.selectedIndex + 1

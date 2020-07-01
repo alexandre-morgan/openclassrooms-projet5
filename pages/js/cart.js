@@ -10,7 +10,7 @@ let formModalButton = document.getElementById('formModalButton')
 
 
 // Afficher les produits du panier
-var displayProductsInCart = function (results,cat,index){
+const displayProductsInCart = function (results,cat,index){
     let divRow = document.createElement('div')
     divRow.classList.add('border','border-secondary','rounded','align-items-center','my-2')
     divRow.setAttribute('id','product' + index)
@@ -119,7 +119,7 @@ var displayProductsInCart = function (results,cat,index){
 
 }
 
-var displayTotalPrice = function(empty){
+const displayTotalPrice = function(empty){
     if(empty){
         totalPrice.innerHTML = 0
 
@@ -132,9 +132,8 @@ var displayTotalPrice = function(empty){
     }
 }
 
-
 // Ajouter l'évènement de supprimer l'article sur l'icone corbeille
-var addEventOnTrash = function(i){
+const addEventOnTrash = function(i){
     let trash = document.getElementById('trash' + i)
     trash.addEventListener('click', function(e){
         e.preventDefault()
@@ -144,7 +143,7 @@ var addEventOnTrash = function(i){
 }
 
 // Ajouter l'évènement qui change en direct la quantité
-var addEventOnQuantity = function(i){
+const addEventOnQuantity = function(i){
     let quantityBtn = document.getElementById('inputQuantity' + i)
     quantityBtn.addEventListener('change', function(){
         cartObject.updateQuantityOfOneProduct(quantityBtn.value, i)
@@ -163,7 +162,7 @@ const addEventOnComandButton = function() {
     })    
 }
 
-var updateData = function(){
+const updateData = function(){
     //Affichage qté
     nbProductInCart.innerHTML = cartObject.nbProducts
 

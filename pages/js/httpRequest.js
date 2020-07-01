@@ -1,5 +1,5 @@
 // Requête http valide sur tous les navigateurs
-var getHttpRequest = function (){
+const getHttpRequest = function (){
     if (window.XMLHttpRequest) { // Mozilla, Safari,...
         httpRequest = new XMLHttpRequest();
         if (httpRequest.overrideMimeType) {
@@ -26,8 +26,8 @@ var getHttpRequest = function (){
     return httpRequest
 }
 
-
-var getProductsByCategorie = function(categorie){
+// Fonction pour requête AJAX des produits d'une catégorie
+const getProductsByCategorie = function(categorie){
     return new Promise(function(resolve, reject){
         let request = new getHttpRequest()
         request.onreadystatechange = function(){
@@ -44,7 +44,8 @@ var getProductsByCategorie = function(categorie){
     })
 }
 
-var getOneProduct = function(categorie,id) {
+// Fonction pour requête AJAX un produit en particulier
+const getOneProduct = function(categorie,id) {
     return new Promise(function(resolve, reject){
         let request = new getHttpRequest()
         request.onreadystatechange = function(){
@@ -62,12 +63,13 @@ var getOneProduct = function(categorie,id) {
 
 }
 
-var displayErrorConnection = function(e){
+// Afficher erreur de connexion avec le serveur
+const displayErrorConnection = function(e){
     alert('Erreur de connexion avec le server', e)
 }
 
-
-var ajaxRequestPost = (data,categorie) => {
+// Fonction de requête AJAX pour envoyer les données au serveur
+const ajaxRequestPost = (data,categorie) => {
     return new Promise((resolve, reject) => {
       var request = new getHttpRequest();
         //retour de la requette si tout c'est bien passé
@@ -86,4 +88,5 @@ var ajaxRequestPost = (data,categorie) => {
         console.log(dataToSend)
         request.send(dataToSend);//data est un objet JS
     })
-  }
+}
+

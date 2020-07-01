@@ -11,7 +11,7 @@ let loading = document.getElementById('loading')
 
 
 // Afficher les produits par catégorie
-var displayProducts = function (results){
+const displayProducts = function (results){
     loading.classList.add('d-none')
     // div colonne des produits de la catégorie
     let divCol = document.createElement('div')
