@@ -13,7 +13,7 @@ Installation et mise en marche de l'application :
 
 
 2. Pour faire fonctionner l'application, il est nécessaire que Node soit installé sur la machine et npm à <strong>la racine du projet</strong>, pour cela :</br>
-    a. Installer Node sur votre machine</br>
+    a. Installer Node sur votre machine (https://nodejs.org/en/download/)</br>
     b. Exécuter la commande : npm install (à la racine du projet)</br>
     c. Plus d'informations dans le fichier server-activation.md
 
